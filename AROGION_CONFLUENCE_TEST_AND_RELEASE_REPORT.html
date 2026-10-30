@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arogion MVP - Project Directory and Technical Report</title>
+  <style>
+    :root { --navy:#172b4d; --blue:#0c66e4; --ink:#172b4d; --muted:#5e6c84; --line:#dfe1e6; --surface:#f7f8fa; --green:#006644; --amber:#974f00; --red:#bf2600; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:#eef1f5; font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif; }
+    .page { max-width:1200px; min-height:100vh; margin:0 auto; background:#fff; }
+    .hero { padding:52px 60px 42px; color:#fff; background:linear-gradient(135deg,#172b4d,#0c66e4); }
+    .hero h1 { margin:0 0 8px; font-size:36px; line-height:1.15; }
+    .hero p { margin:5px 0; color:#deebff; }
+    .meta { display:flex; flex-wrap:wrap; gap:9px; margin-top:22px; }
+    .pill { padding:5px 11px; border:1px solid rgba(255,255,255,.4); border-radius:999px; font-size:12px; }
+    .layout { display:grid; grid-template-columns:225px 1fr; }
+    aside { padding:28px 20px; background:#f4f5f7; border-right:1px solid var(--line); }
+    aside h3 { margin:0 0 12px; color:var(--muted); font-size:12px; text-transform:uppercase; }
+    aside a { display:block; padding:5px 0; color:var(--blue); text-decoration:none; font-size:13px; }
+    main { padding:32px 48px 70px; }
+    h2 { margin:36px 0 13px; padding-bottom:7px; border-bottom:2px solid var(--line); font-size:25px; }
+    h3 { margin:23px 0 8px; font-size:18px; }
+    p { margin:8px 0 12px; }
+    .callout { margin:16px 0; padding:14px 17px; border-left:4px solid var(--blue); background:#e9f2ff; }
+    .callout.warn { border-left-color:#ffab00; background:#fff7df; }
+    .callout.risk { border-left-color:#de350b; background:#fff0ed; }
+    .cards { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0; }
+    .card { padding:15px; border:1px solid var(--line); border-radius:7px; }
+    .card strong { display:block; font-size:20px; }
+    .card span { color:var(--muted); font-size:12px; }
+    table { width:100%; margin:12px 0 20px; border-collapse:collapse; font-size:13px; }
+    th { color:#fff; background:var(--navy); text-align:left; }
+    th,td { padding:9px 10px; border:1px solid var(--line); vertical-align:top; }
+    tr:nth-child(even) td { background:#fafbfc; }
+    code,pre { font-family:Consolas,"Courier New",monospace; }
+    code { padding:2px 5px; border-radius:3px; background:#f1f2f4; font-size:12px; }
+    pre { overflow:auto; padding:14px; background:var(--surface); border:1px solid var(--line); border-radius:5px; font-size:12px; }
+    .badge { display:inline-block; padding:2px 7px; border-radius:4px; font-size:11px; font-weight:700; }
+    .source { color:var(--green); background:#e3fcef; }
+    .config { color:var(--amber); background:#fff0b3; }
+    .generated { color:var(--muted); background:#ebecf0; }
+    .footer { margin-top:34px; padding-top:15px; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
+    @media(max-width:820px) { .hero,main { padding:28px 22px; } .layout { display:block; } aside { border-right:0; border-bottom:1px solid var(--line); } .cards { grid-template-columns:repeat(2,1fr); } table { display:block; overflow-x:auto; } }
+    @media print { body { background:#fff; } .page { max-width:none; } aside { display:none; } .layout { display:block; } main { padding:20px; } .hero { color:#000; background:#fff; border-bottom:2px solid #000; } .hero p,.pill { color:#000; border-color:#000; } table,pre,.callout { break-inside:avoid; } }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <h1>Arogion MVP</h1>
+      <p>Project Directory, File Responsibility and Technical Architecture Report</p>
+      <p>Production documentation for the Flutter healthcare application</p>
+      <p class="small">Workspace: <code>AROGION_MAIN_MVP</code> | Review date: 06 October 2026</p>
+      <div class="meta">
+        <span class="pill">Flutter / Dart</span><span class="pill">Android + iOS</span>
+        <span class="pill">Firebase Authentication</span><span class="pill">Supabase Data</span>
+        <span class="pill">Agora Consultation</span><span class="pill">Medication Notifications</span>
+      </div>
+    </header>
+    <div class="layout">
+      <aside>
+        <h3>Contents</h3>
+        <a href="#overview">1. Project overview</a>
+        <a href="#tree">2. Directory structure</a>
+        <a href="#root">3. Root files</a>
+        <a href="#lib">4. Application source</a>
+        <a href="#platforms">5. Platform files</a>
+        <a href="#data">6. Database and data</a>
+        <a href="#flows">7. Application flows</a>
+        <a href="#security">8. Production notes</a>
+        <a href="#graphify">9. Graphify knowledge graph</a>
+        <a href="#operations">10. Operations</a>
+      </aside>
+      <main>
+        <section id="overview">
+          <h2>1. Project overview</h2>
+          <p>Arogion is a cross-platform Flutter healthcare application. The application provides authentication, patient profile management, doctor and hospital discovery, appointment booking, prescription and medication management, local medication reminders, maps/location features, and Agora-based video consultation.</p>
+          <div class="cards">
+            <div class="card"><strong>Flutter</strong><span>Mobile UI framework</span></div>
+            <div class="card"><strong>21 Dart files</strong><span>Application source inventory</span></div>
+            <div class="card"><strong>1.0.0+1</strong><span>Current app version</span></div>
+            <div class="card"><strong>SDK ^3.8.1</strong><span>Dart constraint</span></div>
+          </div>
+          <div class="callout"><strong>Document purpose:</strong> This report explains the project layout and the responsibility of each important file. It is intended for onboarding, maintenance, deployment preparation, knowledge transfer, and production support.</div>
+        </section>
+
+        <section id="tree">
+          <h2>2. Project directory structure</h2>
+          <pre>AROGION_MAIN_MVP/
+├── lib/
+│   ├── main.dart
+│   ├── bottom_navbar.dart
+│   ├── models/
+│   │   └── user_model.dart
+│   ├── screens/
+│   │   ├── agora_call_screen.dart
+│   │   ├── edit_profile_screen.dart
+│   │   ├── login_screen.dart
+│   │   ├── profile_screen.dart
+│   │   ├── profile_setup_screen.dart
+│   │   ├── reset_password_screen.dart
+│   │   ├── signup_screen.dart
+│   │   └── verify_code_screen.dart
+│   ├── services/
+│   │   ├── firebase_auth_service.dart
+│   │   ├── local_notification_service.dart
+│   │   ├── session_service.dart
+│   │   └── supabase_service.dart
+│   └── widgets/
+│       ├── custom_textfield.dart
+│       ├── medical_loader.dart
+│       └── primary_button.dart
+├── android/
+├── ios/
+├── assets/
+├── test/
+├── pubspec.yaml
+├── supabase_schema.sql
+├── AROGION_DATABASE.sql
+├── AROGION_CONFLUENCE_TEST_AND_RELEASE_REPORT.html
+├── CLAUDE.md
+├── .claude/
+│   └── skills/graphify/
+└── graphify-out/
+    ├── graph.json
+    ├── GRAPH_REPORT.md
+    └── manifest.json</pre>
+          <p><span class="badge source">SOURCE</span> is maintained application code. <span class="badge config">CONFIG</span> is environment, build, schema, or dependency configuration. Generated folders such as <code>build/</code> and <code>.dart_tool/</code> are build outputs and should not be treated as business source.</p>
+        </section>
+
+        <section id="root">
+          <h2>3. Root files</h2>
+          <table>
+            <tr><th>File</th><th>Type</th><th>Contents and responsibility</th></tr>
+            <tr><td><code>pubspec.yaml</code></td><td><span class="badge config">CONFIG</span></td><td>Flutter package identity, Dart SDK range, runtime dependencies, development dependencies, Material Design support, and asset declarations. Declares Firebase, Supabase, Maps, location, Agora, permissions, notifications, timezone, file/image and UI packages.</td></tr>
+            <tr><td><code>pubspec.lock</code></td><td><span class="badge config">LOCK</span></td><td>Resolved package versions used to reproduce the dependency graph.</td></tr>
+            <tr><td><code>analysis_options.yaml</code></td><td><span class="badge config">CONFIG</span></td><td>Dart analyzer and lint configuration used by the project.</td></tr>
+            <tr><td><code>supabase_schema.sql</code></td><td><span class="badge config">DATABASE</span></td><td>Broader Supabase application schema: users, hospitals, doctors, assignments, treatments, availability slots, pricing, appointments, views, indexes, and base policies.</td></tr>
+            <tr><td><code>AROGION_DATABASE.sql</code></td><td><span class="badge config">DATABASE</span></td><td>Canonical medication database handler. Creates medication, alarm and intake-log tables; indexes; timestamp triggers; claim-aware row-level security policies; and the alarm upsert function. It intentionally contains no active demo data.</td></tr>
+            <tr><td><code>README.md</code></td><td>Documentation</td><td>Project introduction and Flutter starter information.</td></tr>
+            <tr><td><code>AROGION_CONFLUENCE_TEST_AND_RELEASE_REPORT.html</code></td><td>Documentation</td><td>This standalone responsive HTML/CSS technical report and project directory guide.</td></tr>
+          </table>
+        </section>
+
+        <section id="lib">
+          <h2>4. Application source</h2>
+          <h3>4.1 Entry point and navigation</h3>
+          <table>
+            <tr><th>File</th><th>Responsibility</th></tr>
+            <tr><td><code>lib/main.dart</code></td><td>Initializes Flutter bindings, Supabase, local notifications and session restoration. Defines the application theme, title, root <code>MaterialApp</code>, and authentication wrapper that chooses between the signed-in navigation shell and login screen.</td></tr>
+            <tr><td><code>lib/bottom_navbar.dart</code></td><td>Main application shell and feature screens. Contains bottom navigation, home content, doctor/hospital discovery, appointments, medications, prescriptions, profile access, booking dialogs, Agora channel creation, medication models and medication UI behavior.</td></tr>
+          </table>
+          <h3>4.2 Models and services</h3>
+          <table>
+            <tr><th>File</th><th>Responsibility</th></tr>
+            <tr><td><code>lib/models/user_model.dart</code></td><td>Typed user profile model and JSON conversion used when reading and writing the Supabase users row.</td></tr>
+            <tr><td><code>lib/services/firebase_auth_service.dart</code></td><td>Firebase email/password registration and login, Google sign-in, Facebook sign-in, password reset, display-name update, sign-out, auth-state access, and user-friendly Firebase error mapping.</td></tr>
+            <tr><td><code>lib/services/supabase_service.dart</code></td><td>Supabase data-access boundary. Handles users, categories, doctors, hospitals, treatments, availability, pricing, appointments, profile/medical-report storage, medications, alarms and retry behavior for selected network operations.</td></tr>
+            <tr><td><code>lib/services/session_service.dart</code></td><td>Persists and restores the application user map in SharedPreferences and clears it during sign-out.</td></tr>
+            <tr><td><code>lib/services/local_notification_service.dart</code></td><td>Initializes timezone data and local notifications; requests notification/exact-alarm permissions; schedules, cancels and reports medication alarms; supports sound/vibration modes and notification diagnostics.</td></tr>
+          </table>
+          <h3>4.3 Screens</h3>
+          <table>
+            <tr><th>File</th><th>Responsibility</th></tr>
+            <tr><td><code>lib/screens/login_screen.dart</code></td><td>Email/password login and social login entry point.</td></tr>
+            <tr><td><code>lib/screens/signup_screen.dart</code></td><td>New-user registration and initial profile creation flow.</td></tr>
+            <tr><td><code>lib/screens/reset_password_screen.dart</code></td><td>Password-reset request form using Firebase email recovery.</td></tr>
+            <tr><td><code>lib/screens/verify_code_screen.dart</code></td><td>Verification-code or verification-state presentation used during account onboarding.</td></tr>
+            <tr><td><code>lib/screens/profile_setup_screen.dart</code></td><td>Collects required patient profile details and creates the Supabase profile row.</td></tr>
+            <tr><td><code>lib/screens/profile_screen.dart</code></td><td>Displays the signed-in user profile and provides profile-related actions and settings.</td></tr>
+            <tr><td><code>lib/screens/edit_profile_screen.dart</code></td><td>Edits profile fields and uploads a profile image through Supabase storage.</td></tr>
+            <tr><td><code>lib/screens/agora_call_screen.dart</code></td><td>Video consultation screen. Requests camera/microphone permissions, initializes Agora, joins a channel, renders local/remote video, handles mute/camera controls, displays connection/error states, and releases the engine on exit.</td></tr>
+          </table>
+          <h3>4.4 Reusable widgets</h3>
+          <table>
+            <tr><th>File</th><th>Responsibility</th></tr>
+            <tr><td><code>lib/widgets/custom_textfield.dart</code></td><td>Reusable stateful form field with controller, hint, prefix/suffix icons, keyboard type, validation, read-only/enabled modes, multiline support, password obscuring and visibility toggle. Uses the shared rounded filled visual style.</td></tr>
+            <tr><td><code>lib/widgets/primary_button.dart</code></td><td>Reusable primary action button for consistent application actions and styling.</td></tr>
+            <tr><td><code>lib/widgets/medical_loader.dart</code></td><td>Reusable medical-themed loading indicator used while asynchronous content is being loaded.</td></tr>
+          </table>
+        </section>
+
+        <section id="platforms">
+          <h2>5. Platform and asset directories</h2>
+          <table>
+            <tr><th>Directory/file</th><th>Contents and responsibility</th></tr>
+            <tr><td><code>android/app/src/main/AndroidManifest.xml</code></td><td>Android application declaration, launcher activity, Maps API metadata, camera/microphone/location/notification/alarm permissions, boot permission and Flutter embedding metadata.</td></tr>
+            <tr><td><code>android/app/build.gradle.kts</code></td><td>Android application namespace, compile SDK, NDK, Java/Kotlin compatibility, minimum SDK, application ID, build types and desugaring dependency.</td></tr>
+            <tr><td><code>android/app/src/main/kotlin/.../MainActivity.kt</code></td><td>Native Flutter activity and <code>arogion/timezone</code> method channel that returns the Android device timezone to Dart.</td></tr>
+            <tr><td><code>android/build.gradle.kts</code>, <code>settings.gradle.kts</code>, <code>gradle.properties</code></td><td>Android project-level Gradle plugins, module inclusion, repositories and Gradle properties.</td></tr>
+            <tr><td><code>android/app/src/main/res/</code></td><td>Android launch backgrounds, themes and platform resources.</td></tr>
+            <tr><td><code>android/app/google-services.json</code></td><td>Firebase Android application configuration. Treat as environment-specific configuration and restrict its associated services/keys.</td></tr>
+            <tr><td><code>ios/Runner/Info.plist</code></td><td>iOS bundle settings, supported orientations and camera, microphone and location usage descriptions.</td></tr>
+            <tr><td><code>ios/Runner/AppDelegate.swift</code></td><td>iOS application delegate used by the Flutter runner.</td></tr>
+            <tr><td><code>ios/Runner.xcodeproj/</code>, <code>ios/Runner.xcworkspace/</code></td><td>Xcode project/workspace settings, build phases, schemes and iOS application integration.</td></tr>
+            <tr><td><code>assets/</code></td><td>Bundled application resources such as the medical loader animation and image assets declared in <code>pubspec.yaml</code>.</td></tr>
+            <tr><td><code>web/</code>, <code>macos/</code>, <code>windows/</code>, <code>linux/</code></td><td>Flutter platform runner scaffolding and generated plugin registration for desktop/web targets. These are not the primary mobile delivery targets currently documented.</td></tr>
+          </table>
+        </section>
+
+        <section id="data">
+          <h2>6. Database and data ownership</h2>
+          <p>The application uses Firebase for identity and Supabase for application data. The Firebase UID is mapped to the Supabase <code>users.firebase_uid</code> value and is used by the data-access layer to locate the application user row.</p>
+          <table>
+            <tr><th>Data area</th><th>Canonical source</th><th>Application usage</th></tr>
+            <tr><td>Identity/profile</td><td><code>supabase_schema.sql</code> users table plus Firebase Auth</td><td>Registration, login mapping, profile display and profile updates.</td></tr>
+            <tr><td>Healthcare catalog</td><td><code>supabase_schema.sql</code></td><td>Home categories, hospitals, doctors, assignments, treatments, treatment pricing and availability.</td></tr>
+            <tr><td>Appointments</td><td><code>supabase_schema.sql</code> appointments table</td><td>Slot selection, booking, appointment display, QR/ticket data and status updates.</td></tr>
+            <tr><td>Medication subsystem</td><td><code>AROGION_DATABASE.sql</code></td><td>Medication records, dose alarms, intake history and alarm upsert operation.</td></tr>
+            <tr><td>Files</td><td>Supabase Storage buckets referenced by the service</td><td>Profile images and medical reports.</td></tr>
+          </table>
+          <div class="callout warn"><strong>Deployment rule:</strong> Run <code>supabase_schema.sql</code> for the broader application schema and use <code>AROGION_DATABASE.sql</code> as the only medication schema handler. Keep seed data separate from production deployment and inject user/environment values rather than hard-coding them.</div>
+        </section>
+
+        <section id="flows">
+          <h2>7. Main application flows</h2>
+          <table>
+            <tr><th>Flow</th><th>Sequence</th><th>Main files</th></tr>
+            <tr><td>Application startup</td><td>Initialize Flutter → initialize Supabase → initialize notifications → restore session → show navigation or login.</td><td><code>main.dart</code>, <code>session_service.dart</code>, <code>local_notification_service.dart</code></td></tr>
+            <tr><td>Authentication</td><td>Enter credentials or provider login → Firebase Auth → map Firebase UID to Supabase user row → persist session.</td><td>Auth screens, <code>firebase_auth_service.dart</code>, <code>supabase_service.dart</code></td></tr>
+            <tr><td>Appointment booking</td><td>Browse catalog → choose doctor/hospital/treatment → load available slot → create appointment → display upcoming appointment.</td><td><code>bottom_navbar.dart</code>, <code>supabase_service.dart</code></td></tr>
+            <tr><td>Medication management</td><td>Load active medication rows → edit medication and doses → persist records → schedule local alarm using device timezone.</td><td><code>bottom_navbar.dart</code>, <code>supabase_service.dart</code>, <code>local_notification_service.dart</code>, <code>AROGION_DATABASE.sql</code></td></tr>
+            <tr><td>Video consultation</td><td>Generate channel identity → request permissions → initialize Agora → join channel → render local/remote media → leave and release.</td><td><code>bottom_navbar.dart</code>, <code>agora_call_screen.dart</code>, platform permission files</td></tr>
+          </table>
+        </section>
+
+        <section id="security">
+          <h2>8. Production notes</h2>
+          <div class="callout risk"><strong>Authentication:</strong> Firebase Auth should be the only credential authority. Do not use a plaintext password field or direct password comparison in application data. Remove or disable any legacy basic-password path before production.</div>
+          <div class="callout risk"><strong>Secrets and keys:</strong> Move environment-specific Supabase values, Maps keys, Firebase configuration and Agora credentials into approved configuration management. Use restricted Maps keys and short-lived Agora tokens.</div>
+          <div class="callout risk"><strong>Data access:</strong> Keep row-level security enabled. Production policies must restrict profile, appointment, medication, alarm and intake records to the authenticated user or approved service role; avoid permissive <code>USING (true)</code> policies for private data.</div>
+          <div class="callout"><strong>Release configuration:</strong> Replace debug signing with protected release signing, maintain separate development, staging and production backend projects or namespaces, and keep generated folders such as <code>build/</code> and <code>.dart_tool/</code> out of source control.</div>
+        </section>
+
+        <section id="graphify">
+          <h2>9. Graphify knowledge graph</h2>
+          <p>Graphify is integrated as a developer-only architecture and code-navigation tool. It analyzes the Flutter/Dart workspace and produces a machine-readable relationship graph; it is not bundled into the Flutter application and is not a runtime dependency.</p>
+          <table>
+            <tr><th>Artifact</th><th>Responsibility</th><th>Source-control policy</th></tr>
+            <tr><td><code>CLAUDE.md</code></td><td>Project instructions for using Graphify queries and keeping the graph current after code changes.</td><td>Retain when the team uses the project-scoped assistant integration.</td></tr>
+            <tr><td><code>.claude/skills/graphify/</code></td><td>Graphify skill instructions and references for update, query, path, explain and export workflows.</td><td>Retain as project configuration.</td></tr>
+            <tr><td><code>graphify-out/graph.json</code></td><td>AST-derived code knowledge graph containing source nodes and cross-file relationships.</td><td>Retain only if the team wants a shareable, reviewable snapshot.</td></tr>
+            <tr><td><code>graphify-out/GRAPH_REPORT.md</code></td><td>Human-readable community and graph summary generated from the current graph snapshot.</td><td>Retain as a reviewable architecture reference.</td></tr>
+            <tr><td><code>graphify-out/manifest.json</code></td><td>Extraction manifest showing analyzed sources and parser warnings.</td><td>Retain with the graph snapshot for traceability.</td></tr>
+            <tr><td><code>graphify-out/cache/</code></td><td>Local AST cache used to accelerate future graph updates.</td><td>Ignored; never publish as a release artifact.</td></tr>
+          </table>
+          <div class="callout warn"><strong>Current graph status:</strong> The clustered graph contains 895 nodes, 1,159 edges and 38 communities, including SQL symbols after installing the optional <code>tree_sitter_sql</code> parser. Parser warnings for unsupported/generated platform files remain recorded in the Graphify manifest and do not block application builds.</div>
+          <pre>graphify update . --no-cluster
+graphify query "How does authentication connect Firebase and Supabase?"
+graphify path "lib/main.dart" "lib/services/supabase_service.dart"
+graphify explain "lib/services/local_notification_service.dart"</pre>
+          <p>Regenerate the graph after structural code changes. Keep Graphify output separate from application build artifacts and do not place API keys or generated semantic-analysis credentials in the repository.</p>
+        </section>
+
+        <section id="operations">
+          <h2>10. Operations and ownership</h2>
+          <table>
+            <tr><th>Area</th><th>Operational owner</th><th>Routine responsibility</th></tr>
+            <tr><td>Flutter application</td><td>Mobile engineering</td><td>Maintain screens, widgets, platform integration, dependencies and release artifacts.</td></tr>
+            <tr><td>Firebase</td><td>Identity/platform engineering</td><td>Manage providers, project configuration, account lifecycle and authentication monitoring.</td></tr>
+            <tr><td>Supabase</td><td>Backend/data engineering</td><td>Apply schema changes, maintain RLS, indexes, storage policies, backups and data retention.</td></tr>
+            <tr><td>Agora</td><td>Platform/operations</td><td>Manage App IDs, token issuance, channel policy and call-quality monitoring.</td></tr>
+            <tr><td>Notifications</td><td>Mobile engineering</td><td>Maintain timezone behavior, permission flows, alarm scheduling and device compatibility.</td></tr>
+            <tr><td>Documentation</td><td>Engineering/QA</td><td>Update this report when directories, services, integrations or deployment responsibilities change.</td></tr>
+          </table>
+          <div class="footer">Document owner: Engineering | Artifact type: technical project directory and architecture report | This document describes the current workspace and should be updated with every material structural or integration change.</div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

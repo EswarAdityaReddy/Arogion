@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "272154963049",
+    "project_id": "arogion-db1b8",
+    "storage_bucket": "arogion-db1b8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:272154963049:android:016914ec56e08cc5bd86f8",
+        "android_client_info": {
+          "package_name": "com.anonymous.Arogion_MVP"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "272154963049-uatftivv411tov0q2afn93ns6tk98i6l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.anonymous.Arogion_MVP",
+            "certificate_hash": "238ddf7d1f9611a91344a8c98e1f7e5f4aee0a79"
+          }
+        },
+        {
+          "client_id": "272154963049-cktc8kvtp3cbqf5ojod0hui6p8dsn9ur.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDmNYIBMfzHlM4qycjkAdwoHqaMkrwYTE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "272154963049-cktc8kvtp3cbqf5ojod0hui6p8dsn9ur.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
